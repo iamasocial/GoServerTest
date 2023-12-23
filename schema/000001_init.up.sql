@@ -1,0 +1,39 @@
+-- Active: 1703338115579@@127.0.0.1@5433@postgres
+CREATE SCHEMA IF NOT EXISTS todo;
+
+CREATE TABLE users
+(
+    id SERIAL NOT NULL UNIQUE,
+    name VARCHAR NOT NULL,
+    username VARCHAR NOT NULL UNIQUE,
+    password_hash VARCHAR NOT NULL
+);
+
+CREATE TABLE todo_lists
+(
+    id SERIAL NOT NULL UNIQUE,
+    title VARCHAR NOT NULL,
+    description VARCHAR
+);
+
+CREATE TABLE users_lists
+(
+    id SERIAL NOT NULL UNIQUE,
+    user_id INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+    list_id INT REFERENCES todo_lists(id) ON DELETE CASCADE NOT NULL
+);
+
+CREATE TABLE todo_items
+(
+    id SERIAL NOT NULL UNIQUE,
+    title VARCHAR NOT NULL,
+    description VARCHAR,
+    done BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE lists_items
+(
+    id SERIAL NOT NULL UNIQUE,
+    item_id INT REFERENCES todo_items(id) ON DELETE CASCADE NOT NULL,
+    list_id INT REFERENCES todo_lists(id) ON DELETE CASCADE NOT NULL
+)

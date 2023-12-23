@@ -1,0 +1,2 @@
+-- Active: 1703338115579@@127.0.0.1@5433@postgres@todo
+DROP SCHEMA IF EXISTS todo CASCADE;
